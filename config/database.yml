@@ -23,6 +23,6 @@ test:
 
 production:
   <<: *default
-  database: jminesweeper_production
-  username: jminesweeper
-  password: <%= ENV['JMINESWEEPER_DATABASE_PASSWORD'] %>
+  database: <%= ENV['DATABASE_URL'] %>
+  # username: jminesweeper
+  # password: <%= ENV['JMINESWEEPER_DATABASE_PASSWORD'] %>
