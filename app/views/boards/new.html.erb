@@ -1,0 +1,27 @@
+<h1>Create a New Minesweeper Board</h1>
+<% if flash[:notice]&.any? %>
+  <% flash[:notice].each do |message| %>
+    <%= message %><br>
+  <% end %>
+  <br>
+<% end %>
+<%= form_for @board do |f| %>
+  <%= f.fields_for :user_attributes do |u| %>
+    <%= u.label :email %>
+    <%= u.email_field :email, placeholder: "User Email", required: true %>
+  <% end %>
+
+  <%= f.label :name %>
+  <%= f.text_field :name, required: true  %>
+
+  <%= f.label :width %>
+  <%= f.number_field :width, required: true  %>
+
+  <%= f.label :height %>
+  <%= f.number_field :height, required: true  %>
+
+  <%= f.label :mines %>
+  <%= f.number_field :mines, required: true  %>
+
+  <%= f.submit 'Generate Board', class: 'btn btn-primary' %>
+<% end %>
