@@ -1,27 +1,43 @@
-<h1>Create a New Minesweeper Board</h1>
 <% if flash[:notice]&.any? %>
   <% flash[:notice].each do |message| %>
     <%= message %><br>
   <% end %>
   <br>
 <% end %>
-<%= form_for @board do |f| %>
-  <%= f.fields_for :user_attributes do |u| %>
-    <%= u.label :email %>
-    <%= u.email_field :email, placeholder: "User Email", required: true %>
+<br>
+<div class="container">
+  <h2>New Minesweeper Board</h2>
+  <hr>
+  <%= form_for @board, class: 'form' do |f| %>
+    <div class="form-group">
+      <%= f.fields_for :user_attributes do |u| %>
+        <%= u.label :email %>
+        <%= u.email_field :email, placeholder: "User Email", class: 'form-control', required: true %>
+      <% end %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :name %>
+      <%= f.text_field :name, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :width %>
+      <%= f.number_field :width, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :height %>
+      <%= f.number_field :height, class: 'form-control' %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :mines %>
+      <%= f.number_field :mines, class: 'form-control' %>
+    </div>
+    
+    <div class="pull-right">
+      <%= f.submit 'Generate Board', class: 'btn btn-primary' %>
+    </div>
   <% end %>
-
-  <%= f.label :name %>
-  <%= f.text_field :name, required: true  %>
-
-  <%= f.label :width %>
-  <%= f.number_field :width, required: true  %>
-
-  <%= f.label :height %>
-  <%= f.number_field :height, required: true  %>
-
-  <%= f.label :mines %>
-  <%= f.number_field :mines, required: true  %>
-
-  <%= f.submit 'Generate Board', class: 'btn btn-primary' %>
-<% end %>
+</div>
