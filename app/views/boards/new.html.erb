@@ -6,37 +6,37 @@
 <% end %>
 <br>
 <div class="container">
-  <h2>New Minesweeper Board</h2>
+  <h2>Minesweeper Board</h2>
   <hr>
   <%= form_for @board, class: 'form' do |f| %>
-    <div class="form-group">
+    <div class="form-group mt-2">
       <%= f.fields_for :user_attributes do |u| %>
         <%= u.label :email %>
-        <%= u.email_field :email, placeholder: "User Email", class: 'form-control', required: true %>
+        <%= u.email_field :email, placeholder: "Enter your email", class: 'form-control', required: true, autocomplete: "off" %>
       <% end %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :name %>
-      <%= f.text_field :name, class: 'form-control' %>
+    <div class="form-group mt-2">
+      <%= f.label :board_name %>
+      <%= f.text_field :name, class: 'form-control', placeholder: "Enter board name", required: true %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :width %>
-      <%= f.number_field :width, class: 'form-control' %>
+    <div class="form-group mt-2">
+      <%= f.label :board_width %>
+      <%= f.number_field :width, class: 'form-control', placeholder: "Enter board width", required: true %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :height %>
-      <%= f.number_field :height, class: 'form-control' %>
+    <div class="form-group mt-2">
+      <%= f.label :board_height %>
+      <%= f.number_field :height, class: 'form-control', placeholder: "Enter board height", required: true %>
     </div>
 
-    <div class="form-group">
-      <%= f.label :mines %>
-      <%= f.number_field :mines, class: 'form-control' %>
+    <div class="form-group mt-2">
+      <%= f.label :total_mines %>
+      <%= f.number_field :mines, class: 'form-control', placeholder: "Number of mines", required: true %>
     </div>
     
-    <div class="pull-right">
+    <div class="pull-right mt-2">
       <%= f.submit 'Generate Board', class: 'btn btn-primary' %>
     </div>
   <% end %>

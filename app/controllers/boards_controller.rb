@@ -20,11 +20,7 @@ class BoardsController < ApplicationController
   end
 
   def index
-    @boards = Board.limit(10).order(created_at: :desc)
-  end
-
-  def all_boards
-    @boards = Board.all
+    @boards = Board.order(created_at: "DESC").paginate(page: params[:page], per_page: params[:per_page])
   end
 
   private
@@ -46,17 +42,13 @@ class BoardsController < ApplicationController
     while mines_placed < num_mines
       x = rand(width)
       y = rand(height)
-      puts board_data[y][x]
-        puts "=========="
+
       # Check if a mine is already placed at (x, y)
       if board_data[y][x] != 'B'
         board_data[y][x] = 'B'
         mines_placed += 1
       end
     end
-
-    puts "----------++++++"
-    puts board_data
 
     # Calculate numbers in cells surrounding mines
     (0...height).each do |y|
@@ -82,6 +74,9 @@ class BoardsController < ApplicationController
     # Save the generated board data to the board model
     board.board_data = board_data
     board.save
+
+    # return a two-dimensional array of objects
+    board_data
   end
 
 end
