@@ -20,11 +20,11 @@ class BoardsController < ApplicationController
   end
 
   def index
-    @boards = Board.limit(10).order(created_at: :desc)
+    @boards = Board.includes(:user).limit(10).order(created_at: :desc)
   end
 
   def all_boards
-    @boards = Board.order(created_at: "DESC").paginate(page: params[:page], per_page: params[:per_page])
+    @boards = Board.includes(:user).order(created_at: "DESC").paginate(page: params[:page], per_page: 2)
   end
 
   private

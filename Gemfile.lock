@@ -142,6 +142,8 @@ GEM
     net-smtp (0.4.0)
       net-protocol
     nio4r (2.5.9)
+    nokogiri (1.15.4-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.15.4-x86_64-linux)
       racc (~> 1.4)
     pg (1.5.4)
@@ -237,16 +239,19 @@ GEM
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     will_paginate (4.0.0)
+    will_paginate-bootstrap (1.0.2)
+      will_paginate (>= 3.0.3)
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.12)
 
 PLATFORMS
+  x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES
   bootsnap
-  bootstrap
+  bootstrap (~> 5.2, >= 5.2.3)
   capybara
   debug
   dotenv-rails
@@ -254,6 +259,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   pg
+  popper_js (~> 2.11.8)
   puma (~> 5.0)
   rails (~> 7.0.7, >= 7.0.7.2)
   redis (~> 4.0)
@@ -265,6 +271,7 @@ DEPENDENCIES
   web-console
   webdrivers
   will_paginate (~> 4.0)
+  will_paginate-bootstrap
 
 RUBY VERSION
    ruby 3.1.2p20
