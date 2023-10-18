@@ -44,7 +44,8 @@ gem "tzinfo-data", platforms: %i[ mingw mswin x64_mingw jruby ]
 gem "bootsnap", require: false
 gem 'bootstrap'
 gem 'jquery-rails'
-gem 'will_paginate'
+gem 'will_paginate', '~> 4.0'
+
 
 # Use Sass to process CSS
 # gem "sassc-rails"
