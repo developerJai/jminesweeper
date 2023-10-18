@@ -1,7 +1,22 @@
+<%=turbo_frame_tag "test" do%>
+<style type="text/css">
+.my-custom-pagination {
+border: 1px solid #555;
+padding: 10px;
+}
+</style>
 <div class="container">
-	<br>
+  <br>
   <h2>All Generated Boards</h2>
   <br>
+  <%= form_tag boards_path, method: :get, class: "form-inline" do %>
+  <div class="d-flex justify-content-between filter-container relative">
+    <input type="text" value="<%=params[:keyword]%>" name="keyword" class="form-control w-50" id="filter">
+    <!-- <div class="position-absolute end-0"> -->
+    <a href="<%=new_board_path%>" class="btn btn-success w-25">Generate minesweeper board</a>
+    <!-- </div> -->
+  </div>
+  <% end %>
   <table class="table table-striped">
     <thead>
       <tr>
@@ -12,15 +27,21 @@
     </thead>
     <tbody>
       <% @boards.each do |board| %>
-        <tr>
-          <td><a href="<%=board_path(board.id)%>"><%= board.name %></a></td>
-          <td><%= board.user.email %></td>
-          <td><small><%= board.created_at.strftime('%B %d, %Y %I:%M %p') %></small></td>
-        </tr>
+      <tr>
+        <td><a href="<%= board_path(board.id) %>"><%= board.name %></a></td>
+        <td><%= board.user.email %></td>
+        <td><small><%= board.created_at.strftime('%B %d, %Y %I:%M %p') %></small></td>
+      </tr>
       <% end %>
     </tbody>
   </table>
-  <br><br>
-  <%= link_to 'View all generated boards', board_list_path, class: 'btn btn-primary' %>
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="container pagination justify-content-center" >
+        <%= will_paginate @boards, renderer: BootstrapPagination::Rails, class: "my-custom-pagination" %>
+      </div>
+    </div>
+  </div>
 </div>
 <br>
+<%end%>

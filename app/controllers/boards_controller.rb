@@ -1,6 +1,7 @@
 class BoardsController < ApplicationController
   def new
     @board = Board.new
+    @boards = Board.includes(:user).limit(10).order(created_at: :desc)
   end
 
   def create
@@ -20,11 +21,16 @@ class BoardsController < ApplicationController
   end
 
   def index
-    @boards = Board.includes(:user).limit(10).order(created_at: :desc)
+    if params[:keyword].present?
+      keyword = params[:keyword].downcase
+      @boards = Board.includes(:user).where("LOWER(id::text) LIKE ? OR LOWER(name) LIKE ?", "%#{params[:keyword]}%", "%#{params[:keyword]}%").order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    else
+      @boards = Board.includes(:user).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+    end
   end
 
   def all_boards
-    @boards = Board.includes(:user).order(created_at: "DESC").paginate(page: params[:page], per_page: 2)
+    @boards = Board.includes(:user).order(created_at: "DESC").paginate(page: params[:page], per_page: 10)
   end
 
   private
