@@ -24,7 +24,7 @@ class BoardsController < ApplicationController
   end
 
   def all_boards
-    @boards = Board.all
+    @boards = Board.paginate(page: params[:page], per_page: 15)
   end
 
   private

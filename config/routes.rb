@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   # root "articles#index"
   resources :boards
   root 'boards#new'
+  get "board/list" => "boards#all_boards"
 end

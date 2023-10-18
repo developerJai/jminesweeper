@@ -1,0 +1,19 @@
+<div class="container">
+	<br>
+  <h2>Ten Most Recently Generated Boards</h2>
+  <br>
+  <ul class="list-group">
+    <% @boards.each do |board| %>
+      <li class="list-group-item">
+        <div class="d-flex w-100 justify-content-between">
+          <h5 class="mb-1"><a href="<%=board_path(board.id)%>"><%= board.name %></a></h5>
+          <small><%= board.created_at.strftime('%B %d, %Y %I:%M %p') %></small>
+        </div>
+        <p class="mb-1">User: <%= board.user.email %></p>
+      </li>
+    <% end %>
+  </ul>
+  <br><br>
+  <%= link_to 'View all generated boards', board_list_path, class: 'btn btn-primary' %>
+</div>
+<br>
