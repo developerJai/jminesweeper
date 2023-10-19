@@ -4,41 +4,40 @@
     <div class="col-md-6 px-5">
       <div class="card">
         <% if flash[:notice]&.any? %>
-          <% flash[:notice].each do |message| %>
-            <%= message %><br>
-          <% end %>
-          <br>
+        <% flash[:notice].each do |message| %>
+        <%= message %><br>
         <% end %>
         <br>
-        <div class="container">
+        <% end %>
+        <div class="container p-4">
           <h2>Generate new board</h2>
           <hr>
           <%= form_for @board, class: 'form' do |f| %>
-          <div class="form-group mt-2">
+          <div class="form-group mt-4">
             <%= f.fields_for :user_attributes do |u| %>
             <%= u.label :email %>
-            <%= u.email_field :email, placeholder: "Enter your email", class: 'form-control', required: true, autocomplete: "off" %>
+            <%= u.email_field :email, placeholder: "Enter your email", class: 'form-control mt-2', required: true, autocomplete: "off" %>
             <% end %>
           </div>
-          <div class="form-group mt-2">
+          <div class="form-group mt-4">
             <%= f.label :board_name %>
-            <%= f.text_field :name, class: 'form-control', placeholder: "Enter board name", required: true %>
+            <%= f.text_field :name, class: 'form-control mt-2', placeholder: "Enter board name", required: true %>
           </div>
-          <div class="form-group mt-2">
+          <div class="form-group mt-4">
             <%= f.label :board_width %>
-            <%= f.number_field :width, class: 'form-control', placeholder: "Enter board width", required: true %>
+            <%= f.number_field :width, class: 'form-control mt-2', placeholder: "Enter board width", required: true %>
           </div>
-          <div class="form-group mt-2">
+          <div class="form-group mt-4">
             <%= f.label :board_height %>
-            <%= f.number_field :height, class: 'form-control', placeholder: "Enter board height", required: true %>
+            <%= f.number_field :height, class: 'form-control mt-2', placeholder: "Enter board height", required: true %>
           </div>
-          <div class="form-group mt-2">
+          <div class="form-group mt-4">
             <%= f.label :total_mines %>
-            <%= f.number_field :mines, class: 'form-control', placeholder: "Number of mines", required: true %>
+            <%= f.number_field :mines, class: 'form-control mt-2', placeholder: "Number of mines", required: true %>
           </div>
           
-          <div class="pull-right mt-2 mb-2">
-            <%= f.submit 'Generate Board', class: 'btn btn-primary' %>
+          <div class="d-flex align-items-center justify-content-end mt-4 mb-2">
+            <%= f.submit 'Generate Board', class: 'btn btn-primary py-2 px-3' %>
           </div>
           <% end %>
         </div>
@@ -46,38 +45,47 @@
     </div>
     <div class="col-md-6 pe-5">
       <div class="card">
-        <div class="card-body">
+        <div class="card-body pb-1">
           <div class="container">
             <h2>Newly New board</h2>
             <hr>
+            <% if @boards.any? %>
             <table class="table table-striped">
               <thead>
                 <tr>
                   <th>Board Name</th>
                   <th>Email</th>
-                  <th>Created</th>
+                  <th>Width</th>
+                  <th>Height</th>
+                  <th>Mines</th>
                 </tr>
               </thead>
               <tbody>
-                <% if @boards.any? %>
                 <% @boards.each do |board| %>
                 <tr>
                   <td><a href="<%=board_path(board.id)%>"><%= board.name %></a></td>
                   <td><%= board.user.email %></td>
+                  <td><%= board.width %></td>
+                  <td><%= board.height %></td>
+                  <td><%= board.mines %></td>
                   <td><small><%= board.created_at.strftime('%B %d, %Y %I:%M %p') %></small></td>
                 </tr>
                 <% end %>
-                <% else %>
-                <tr>
-                  <td colspan="3">No records found.</td>
-                </tr>
-              <% end %>
               </tbody>
             </table>
-            <br><br>
-            <a href="<%=boards_path%>" class="btn btn-danger">
-              View all generated boards
-            </a>
+            <% else %>
+            <div class="d-flex align-items-center justify-content-center" style="min-height: 450px;">
+              <div>
+                <img src="<%=asset_url("no-data-found.jpg")%>">
+                <p class="text-center">No records found.</p>
+              </div>
+            </div>
+            <% end %>
+            <div class="d-flex align-items-center justify-content-end mt-4">
+              <a href="<%=boards_path%>" class="btn btn-success py-2 px-3 mt-3">
+                View all generated boards
+              </a>
+            </div>
           </div>
           <br>
         </div>

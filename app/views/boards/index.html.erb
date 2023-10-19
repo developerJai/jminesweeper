@@ -1,46 +1,36 @@
 <%=turbo_frame_tag "test" do%>
 <style type="text/css">
-.my-custom-pagination {
-border: 1px solid #555;
-padding: 10px;
+.board-pagination .pagination ul{
+border: 1px solid #ccc;
+padding: 10px 20px;
+}
+.board-pagination .pagination ul li{
+margin-right: 10px;
 }
 </style>
 <div class="container">
   <br>
   <h2>All Generated Boards</h2>
   <br>
-<%= form_tag boards_path, method: :get, class: "form-inline" do %>
-  <div class="d-flex justify-content-between filter-container relative">
-    <label>Filter boards</label><br>
-    <input
-      type="text"
-      value="<%= params[:keyword] %>"
-      name="keyword"
-      class="form-control w-50"
-      id="filter"
-      placeholder="Filter by board name or email"
-      data-controller="filter"
-      data-action="input->filter#filter"
-      data-target="filter.input"
-    >
-    <a href="<%= new_board_path %>" class="btn btn-success w-25">Generate New board</a>
+  <%= form_tag boards_path, method: :get, class: "form-inline" do %>
+  <div class="d-flex align-items-center justify-content-between mb-4 ">
+    <div class="d-flex align-items-center">
+      <label class="w-50">Filter boards :</label>
+      <%= text_field_tag :keyword, params[:keyword], class: "form-control w-100 me-3", id: "filter", placeholder: "Filter by board name or email", autocomplete: "off" %>
+      <button type="submit" class="btn btn-success hide--element me-3"></i>
+      Apply
+      </button>
+      <a href="<%=boards_path%>" class="btn btn-danger">Reset</a>
+    </div>
+    <div>
+      <a href="<%= new_board_path %>" class="btn btn-success w-100">Generate New board</a>
+    </div>
   </div>
-<% end %>
-
-<input
-  type="text"
-  name="keyword"
-  class="form-control w-50"
-  id="filter"
-  data-controller="filter"
-  data-action="input->filter#filter"
-  placeholder="Search..."
-/>
-
+  <% end %>
+  <% if @boards.any? %>
   <table class="table table-striped">
     <thead>
-           <tr>
-
+      <tr data-target="sid.tableRow">
         <th>Board Name</th>
         <th>Email</th>
         <th>Width</th>
@@ -51,24 +41,32 @@ padding: 10px;
     </thead>
     <tbody>
       <% @boards.each do |board| %>
-      <tr data-target="filter.tableRow">
+      <tr>
         <td><a href="<%= board_path(board.id) %>"><%= board.name %></a></td>
         <td><%= board.user.email %></td>
-         <td><%= board.width %></td>
-         <td><%= board.height %></td>
-         <td><%= board.mines %></td>
+        <td><%= board.width %></td>
+        <td><%= board.height %></td>
+        <td><%= board.mines %></td>
         <td><small><%= board.created_at.strftime('%B %d, %Y %I:%M %p') %></small></td>
       </tr>
       <% end %>
     </tbody>
   </table>
-  <div class="row">
+  <div class="row board-pagination">
     <div class="col-lg-12">
       <div class="container pagination justify-content-center" >
         <%= will_paginate @boards, renderer: BootstrapPagination::Rails, class: "my-custom-pagination" %>
       </div>
     </div>
   </div>
+  <% else %>
+  <div class="d-flex align-items-center justify-content-center" style="min-height: 450px; border: 1px solid #ccc;">
+    <div>
+      <img src="<%=asset_url("no-data-found.jpg")%>">
+      <p class="text-center">No records found.</p>
+    </div>
+  </div>
+  <% end %>
 </div>
 <br>
 <%end%>
