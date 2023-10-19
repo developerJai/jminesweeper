@@ -1,18 +1,17 @@
 <%=turbo_frame_tag "test" do%>
-<h1 class="text-center mt-2">Generate minesweeper board</h1>
 <div class="container-fluid mt-4">
   <div class="row">
     <div class="col-md-6 px-5">
       <div class="card">
         <% if flash[:notice]&.any? %>
-        <% flash[:notice].each do |message| %>
-        <%= message %><br>
-        <% end %>
-        <br>
+          <% flash[:notice].each do |message| %>
+            <%= message %><br>
+          <% end %>
+          <br>
         <% end %>
         <br>
         <div class="container">
-          <h2>Generate board</h2>
+          <h2>Generate new board</h2>
           <hr>
           <%= form_for @board, class: 'form' do |f| %>
           <div class="form-group mt-2">
@@ -49,8 +48,8 @@
       <div class="card">
         <div class="card-body">
           <div class="container">
-            <h2>Newly created boards</h2>
-            <br>
+            <h2>Newly generated boards</h2>
+            <hr>
             <table class="table table-striped">
               <thead>
                 <tr>

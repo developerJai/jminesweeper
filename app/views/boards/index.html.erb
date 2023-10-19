@@ -11,7 +11,8 @@ padding: 10px;
   <br>
   <%= form_tag boards_path, method: :get, class: "form-inline" do %>
   <div class="d-flex justify-content-between filter-container relative">
-    <input type="text" value="<%=params[:keyword]%>" name="keyword" class="form-control w-50" id="filter">
+    <label>Filter boards</label><br>
+    <input type="text" value="<%=params[:keyword]%>" name="keyword" class="form-control w-50" id="filter" placeholder="Filter by board name or email">
     <!-- <div class="position-absolute end-0"> -->
     <a href="<%=new_board_path%>" class="btn btn-success w-25">Generate minesweeper board</a>
     <!-- </div> -->
