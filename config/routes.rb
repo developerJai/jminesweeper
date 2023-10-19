@@ -3,7 +3,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :boards
+  resources :boards, except: [:update, :edit, :destroy]
   root 'boards#new'
-  get "board/list" => "boards#all_boards"
 end
