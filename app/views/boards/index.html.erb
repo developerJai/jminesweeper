@@ -9,28 +9,54 @@ padding: 10px;
   <br>
   <h2>All Generated Boards</h2>
   <br>
-  <%= form_tag boards_path, method: :get, class: "form-inline" do %>
+<%= form_tag boards_path, method: :get, class: "form-inline" do %>
   <div class="d-flex justify-content-between filter-container relative">
     <label>Filter boards</label><br>
-    <input type="text" value="<%=params[:keyword]%>" name="keyword" class="form-control w-50" id="filter" placeholder="Filter by board name or email">
-    <!-- <div class="position-absolute end-0"> -->
-    <a href="<%=new_board_path%>" class="btn btn-success w-25">Generate minesweeper board</a>
-    <!-- </div> -->
+    <input
+      type="text"
+      value="<%= params[:keyword] %>"
+      name="keyword"
+      class="form-control w-50"
+      id="filter"
+      placeholder="Filter by board name or email"
+      data-controller="filter"
+      data-action="input->filter#filter"
+      data-target="filter.input"
+    >
+    <a href="<%= new_board_path %>" class="btn btn-success w-25">Generate New board</a>
   </div>
-  <% end %>
+<% end %>
+
+<input
+  type="text"
+  name="keyword"
+  class="form-control w-50"
+  id="filter"
+  data-controller="filter"
+  data-action="input->filter#filter"
+  placeholder="Search..."
+/>
+
   <table class="table table-striped">
     <thead>
-      <tr>
+           <tr>
+
         <th>Board Name</th>
         <th>Email</th>
+        <th>Width</th>
+        <th>Height</th>
+        <th>Total Mines</th>
         <th>Created</th>
       </tr>
     </thead>
     <tbody>
       <% @boards.each do |board| %>
-      <tr>
+      <tr data-target="filter.tableRow">
         <td><a href="<%= board_path(board.id) %>"><%= board.name %></a></td>
         <td><%= board.user.email %></td>
+         <td><%= board.width %></td>
+         <td><%= board.height %></td>
+         <td><%= board.mines %></td>
         <td><small><%= board.created_at.strftime('%B %d, %Y %I:%M %p') %></small></td>
       </tr>
       <% end %>

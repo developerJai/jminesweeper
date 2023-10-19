@@ -30,7 +30,7 @@ class BoardsController < ApplicationController
   def index
     if params[:keyword].present?
       keyword = params[:keyword].downcase
-      @boards = Board.includes(:user).where("LOWER(id::text) LIKE ? OR LOWER(name) LIKE ?", "%#{params[:keyword]}%", "%#{params[:keyword]}%").order(created_at: :desc).paginate(page: params[:page], per_page: 10)
+      @boards = Board.joins(:user).where("LOWER(users.email) LIKE ? OR LOWER(name) LIKE ?", "%#{params[:keyword]}%", "%#{params[:keyword]}%").order(created_at: :desc).paginate(page: params[:page], per_page: 10)
     else
       @boards = Board.includes(:user).order(created_at: :desc).paginate(page: params[:page], per_page: 10)
     end
