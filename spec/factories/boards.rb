@@ -2,11 +2,11 @@
 
 FactoryBot.define do
   factory :board do
-    name { "New board" }
-    width { 5 }
-    height { 5 }
-    mines { 10 }
-    user { create(:user, email: "test@example.com") }
-    board_data { {} }
+    name { Faker::Lorem.words(number: 2).join(" ") }
+    width { Faker::Number.between(from: 5, to: 10) }
+    height { Faker::Number.between(from: 5, to: 10) }
+    mines { Faker::Number.between(from: 5, to: 15) } 
+    user { create(:user, email: Faker::Internet.email) }
+    board_data { [] }
   end
 end
